@@ -27,7 +27,7 @@ Or you can also ...
 sudo mv pyscii.py /usr/bin/pyscii
 sudo chmod +x /usr/bin/pyscii
 ```
-... so you can call pyscii from anywhere like this:
+... so you can call [pyscii](https://github.com/Julynx/pyscii) from anywhere like this:
 ```
 pyscii <video.mp4>
 ```
