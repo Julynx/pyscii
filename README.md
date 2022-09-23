@@ -12,8 +12,9 @@ A simple and extremely fast python script to turn video into ASCII the right way
 - Video frames are stored as NumPy arrays.
 - Function vectorizing allows for a high-performance transformation of these arrays into printable characters.
 
-### Simple and dependency-free
-- Only uses core python libraries and FFMPEG.
+### Simple and lightweight
+- Only uses basic python libraries like NumPy and PIL.
+- Video conversion and frame extraction are handled by FFMPEG.
 - Under 130 lines of code.
 
 ## Usage
