@@ -102,8 +102,8 @@ def main() -> int:
     print(f"Generating took {round((t1-t0)*1000, 2)} ms")
 
     ##
-    cmd = f"vlc {video_name} --novideo --qt-start-minimized"
-    os.system(cmd + " > /dev/null 2>&1 &")
+    # cmd = f"vlc {video_name} --novideo --qt-start-minimized"
+    # os.system(cmd + " > /dev/null 2>&1 &")
     ##
 
     ##
