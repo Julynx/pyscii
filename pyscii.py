@@ -3,7 +3,7 @@
 """
 @file     pyscii.py
 @date     24/09/2022
-@version  0.9.3
+@version  0.9.4
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -43,14 +43,14 @@ def main() -> int:
     # Detect the video framerate
     cmd = (f"ffprobe -v error -select_streams v:0 -show_entries "
            f"stream=r_frame_rate -of "
-           f"default=noprint_wrappers=1:nokey=1 {video_name}")
+           f"default=noprint_wrappers=1:nokey=1 '{video_name}'")
     framerate = os.popen(cmd).read().strip().split("/")
     framerate = int(framerate[0]) / int(framerate[1])
 
     ##
     # Extract frames from video
     ##
-    cmd = (f"ffmpeg -i {video_name} -vf scale={rows}:{cols} "
+    cmd = (f"ffmpeg -i '{video_name}' -vf scale={rows}:{cols} "
            f"/tmp/pyscii-frames/%d.png")
     print("Processing video...")
 
