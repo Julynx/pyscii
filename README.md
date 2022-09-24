@@ -1,6 +1,8 @@
 # pyscii
 A simple and extremely fast python script to turn video into ASCII the right way.
 
+https://i.imgur.com/wVm9t9C.mp4
+
 ## Why pyscii?
 ### Easy to use
 - Automatically fits the video to your terminal.
