@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 """
-@file     python.py
-@date     DD/MM/YYYY
-@version  0.0.1
+@file     pyscii.py
+@date     24/09/2022
+@version  0.9.1
 @license  GNU General Public License v2.0
-@url      github.com/Julynx/RepositoryName
-@author   Julio Cabria (username@domain.ext)
+@url      github.com/Julynx/pyscii
+@author   Julio Cabria
 """
 
 import os
@@ -17,7 +17,9 @@ from PIL import Image, ImageOps
 
 
 def pixel_to_ascii(brightness) -> str:
-    palette = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "[::-1]
+    palette = (
+        "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvun"
+        "xrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "[::-1])
     normalized_grayscl = brightness/255
     return palette[int(normalized_grayscl * (len(palette) - 1))]
 
@@ -40,14 +42,17 @@ def main() -> int:
     os.mkdir("/tmp/pyscii-frames")
 
     # Detect the video framerate
-    cmd = f"ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of default=noprint_wrappers=1:nokey=1 {video_name}"
+    cmd = (f"ffprobe -v error -select_streams v:0 -show_entries"
+           f"stream=r_frame_rate -of"
+           f"default=noprint_wrappers=1:nokey=1 {video_name}")
     framerate = os.popen(cmd).read().strip().split("/")
     framerate = int(framerate[0]) / int(framerate[1])
 
     ##
     # Extract frames from video
     ##
-    cmd = f"ffmpeg -i {video_name} -vf scale={rows}:{cols} /tmp/pyscii-frames/%d.png"
+    cmd = (f"ffmpeg -i {video_name} -vf scale={rows}:{cols}"
+           f"/tmp/pyscii-frames/%d.png")
     print("Processing video...")
 
     t0 = time.time()
@@ -101,10 +106,10 @@ def main() -> int:
     t1 = time.time()
     print(f"Generating took {round((t1-t0)*1000, 2)} ms")
 
-    ##
+    ## PLAY AUDIO IN THE BACKGROUND ##
     # cmd = f"vlc {video_name} --novideo --qt-start-minimized"
     # os.system(cmd + " > /dev/null 2>&1 &")
-    ##
+    ##                              ##
 
     ##
     # Print each string as a frame
