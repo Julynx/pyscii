@@ -1,7 +1,7 @@
 # pyscii
 A simple and extremely fast python script to turn video into ASCII the right way.
 
-https://i.imgur.com/wVm9t9C.mp4
+![Alt Text](https://i.imgur.com/G2uqxQo.png)
 
 ## Why pyscii?
 ### Easy to use
@@ -9,7 +9,7 @@ https://i.imgur.com/wVm9t9C.mp4
 - Compatible with virtually all video formats.
 - Detects and matches the framerate of the original video.
 
-### Extremely fast
+### Lightning speed
 - FFMPEG downscales the input video to the size of your terminal before it is converted to ASCII.
 - Video frames are stored as NumPy arrays.
 - Function vectorizing allows for a high-performance transformation of these arrays into printable characters.
