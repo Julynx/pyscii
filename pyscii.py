@@ -3,7 +3,7 @@
 """
 @file     pyscii.py
 @date     24/09/2022
-@version  0.9.2
+@version  0.9.3
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -104,11 +104,6 @@ def main() -> int:
         frame_buffer.append(frame)
     t1 = time.time()
     print(f"Generating took {round((t1-t0)*1000, 2)} ms")
-
-    ## PLAY AUDIO IN THE BACKGROUND ##
-    # cmd = f"vlc {video_name} --novideo --qt-start-minimized"
-    # os.system(cmd + " > /dev/null 2>&1 &")
-    ##                              ##
 
     ##
     # Print each string as a frame
