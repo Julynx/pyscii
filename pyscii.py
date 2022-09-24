@@ -3,7 +3,7 @@
 """
 @file     pyscii.py
 @date     24/09/2022
-@version  0.9.4
+@version  0.9.5
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -15,10 +15,12 @@ import numpy as np
 import time
 from PIL import Image, ImageOps
 
+palette = \
+    "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "
+
 
 def pixel_to_ascii(brightness) -> str:
-    palette = ("$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvun"
-               "xrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "[::-1])
+    palette = palette[::-1]
     normalized_grayscl = brightness/255
     return palette[int(normalized_grayscl * (len(palette) - 1))]
 
