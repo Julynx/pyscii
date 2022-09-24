@@ -3,7 +3,7 @@
 """
 @file     pyscii.py
 @date     24/09/2022
-@version  0.9.1
+@version  0.9.2
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -17,9 +17,8 @@ from PIL import Image, ImageOps
 
 
 def pixel_to_ascii(brightness) -> str:
-    palette = (
-        "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvun"
-        "xrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "[::-1])
+    palette = ("$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvun"
+               "xrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "[::-1])
     normalized_grayscl = brightness/255
     return palette[int(normalized_grayscl * (len(palette) - 1))]
 
@@ -42,8 +41,8 @@ def main() -> int:
     os.mkdir("/tmp/pyscii-frames")
 
     # Detect the video framerate
-    cmd = (f"ffprobe -v error -select_streams v:0 -show_entries"
-           f"stream=r_frame_rate -of"
+    cmd = (f"ffprobe -v error -select_streams v:0 -show_entries "
+           f"stream=r_frame_rate -of "
            f"default=noprint_wrappers=1:nokey=1 {video_name}")
     framerate = os.popen(cmd).read().strip().split("/")
     framerate = int(framerate[0]) / int(framerate[1])
@@ -51,7 +50,7 @@ def main() -> int:
     ##
     # Extract frames from video
     ##
-    cmd = (f"ffmpeg -i {video_name} -vf scale={rows}:{cols}"
+    cmd = (f"ffmpeg -i {video_name} -vf scale={rows}:{cols} "
            f"/tmp/pyscii-frames/%d.png")
     print("Processing video...")
 
