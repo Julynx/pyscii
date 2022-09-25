@@ -2,8 +2,8 @@
 
 """
 @file     pyscii.py
-@date     24/09/2022
-@version  0.9.6
+@date     25/09/2022
+@version  0.9.7
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -31,12 +31,10 @@ def main() -> int:
     if len(sys.argv) != 2 or sys.argv[1] in ["-h", "--help"]:
         print("Usage: program <file_name>")
         return 0
-    else:
-        video_name = sys.argv[1]
+    video_name = sys.argv[1]
 
-    # Delete the previous video frames if the folder exists
-    if os.path.exists("/tmp/pyscii-frames"):
-        os.system("rm -rf /tmp/pyscii-frames")
+    # Delete the previous video frames
+    os.system("rm -rf /tmp/pyscii-frames")
     os.mkdir("/tmp/pyscii-frames")
 
     # Detect the video framerate
@@ -66,14 +64,11 @@ def main() -> int:
     t0 = time.time()
     i_arrays = []
     for i, frame in enumerate(frames):
-        print("Loading frame {}/{}".format(i+1, len(frames)))
-        print(f"{rt}", end="")
-
+        print(f"Loading frame {i+1}/{len(frames)}")
+        print(rt, end="")
         image = Image.open(f"/tmp/pyscii-frames/{frame}")
         image = ImageOps.grayscale(image)
-        i_array = np.asarray(image)
-
-        i_arrays.append(i_array)
+        i_arrays.append(np.asarray(image))
     t1 = time.time()
     print(f"Loading took {round((t1-t0)*1000, 2)} ms")
 
@@ -84,10 +79,9 @@ def main() -> int:
     ii_arrays = []
     vecToAscii = np.vectorize(pixel_to_ascii)
     for i, i_array in enumerate(i_arrays):
-        print("Transforming frame {}/{}".format(i+1, len(frames)))
-        print(f"{rt}", end="")
-        ii_array = vecToAscii(i_array)
-        ii_arrays.append(ii_array)
+        print(f"Transforming frame {i+1}/{len(frames)}")
+        print(rt, end="")
+        ii_arrays.append(vecToAscii(i_array))
     t1 = time.time()
     print(f"Transforming took {round((t1-t0)*1000, 2)} ms")
 
@@ -97,8 +91,8 @@ def main() -> int:
     t0 = time.time()
     frame_buffer = []
     for i, ii_array in enumerate(ii_arrays):
-        print("Generating frame {}/{}".format(i+1, len(frames)))
-        print(f"{rt}", end="")
+        print(f"Generating frame {i+1}/{len(frames)}")
+        print(rt, end="")
         frame = "\n".join(["".join(row) for row in ii_array])
         frame_buffer.append(frame)
     t1 = time.time()
@@ -111,6 +105,7 @@ def main() -> int:
         print("\n" + frame, end="")
         time.sleep(1/framerate)
 
+    os.system("rm -rf /tmp/pyscii-frames")
     return 0
 
 
