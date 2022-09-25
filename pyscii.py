@@ -50,7 +50,6 @@ def main() -> int:
     cmd = (f"ffmpeg -i '{video_name}' -vf scale={rows}:{cols} "
            f"/tmp/pyscii-frames/%d.png")
     print("Processing video...")
-
     t0 = time.time()
     os.system(cmd + " > /dev/null 2>&1")
     frames = sorted(os.listdir("/tmp/pyscii-frames/"),
