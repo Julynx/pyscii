@@ -2,8 +2,8 @@
 
 """
 @file     pyscii.py
-@date     25/09/2022
-@version  0.9.8_dev
+@date     26/09/2022
+@version  0.9.9_dev
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -67,20 +67,40 @@ def main() -> int:
 
     ##
     # Load frames with pillow, grayscale them and make them a numpy array
-    # then convert them to ascii and print them
     ##
-    vecToAscii = np.vectorize(pixel_to_ascii)
-    for frame in frames:
-
-        t0 = time.time()
+    t0 = time.time()
+    i_arrays = []
+    for i, frame in enumerate(frames):
+        print(f"Loading frame {i+1}/{len(frames)}")
+        print(rt, end="")
         image = Image.open(f"/tmp/pyscii-frames/{frame}")
         image = ImageOps.grayscale(image)
-        ascii_array = vecToAscii(np.asarray(image))
+        i_arrays.append(np.asarray(image))
+    t1 = time.time()
+    print(f"Loading took {round((t1-t0)*1000, 2)} ms")
+
+    ##
+    # Convert frames to ascii and print them
+    ##
+    misses = 0
+    vecToAscii = np.vectorize(pixel_to_ascii)
+    for array in i_arrays:
+
+        t0 = time.time()
+        ascii_array = vecToAscii(np.asarray(array))
         frame = "\n".join(["".join(row) for row in ascii_array])
         t1 = time.time()
 
-        print("\n" + frame, end="")
         interval = max(((1/framerate)-(t1 - t0)), 0)
+        misses = misses + 1 if interval == 0 else misses
+
+        if misses > 10:
+            print("Your device is too slow to play this video in real time,")
+            print("try using the regular version instead:")
+            print("  pyscii <video.mp4>")
+            return 0
+
+        print("\n" + frame, end="")
         time.sleep(interval)
 
     os.system("rm -rf /tmp/pyscii-frames")
