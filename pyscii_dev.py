@@ -3,7 +3,7 @@
 """
 @file     pyscii.py
 @date     26/09/2022
-@version  0.9.9_dev
+@version  1.0.0_dev
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
 @author   Julio Cabria
@@ -87,7 +87,7 @@ def main() -> int:
     for array in i_arrays:
 
         t0 = time.time()
-        ascii_array = vecToAscii(np.asarray(array))
+        ascii_array = vecToAscii(array)
         frame = "\n".join(["".join(row) for row in ascii_array])
         t1 = time.time()
 
