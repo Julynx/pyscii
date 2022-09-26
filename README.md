@@ -22,7 +22,7 @@ A simple and extremely fast python script to turn video into ASCII the right way
 ## Dependencies
 To install the required dependencies numpy and Pillow, run:
 ```
-pip3 install numpy, Pillow
+pip3 install numpy Pillow
 ```
 Then, make sure you have FFMPEG installed by running the command specific to your linux distribution. 
 For Ubuntu:
