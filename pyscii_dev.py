@@ -83,6 +83,7 @@ def main() -> int:
         interval = max(((1/framerate)-(t1 - t0)), 0)
         time.sleep(interval)
 
+    os.system("rm -rf /tmp/pyscii-frames")
     return 0
 
 
