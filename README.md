@@ -33,3 +33,14 @@ sudo chmod +x /usr/bin/pyscii
 ```
 pyscii <video.mp4>
 ```
+
+## Versions
+### pyscii.py
+
+The recommended version is [pyscii.py](https://raw.githubusercontent.com/Julynx/pyscii/main/pyscii.py).
+It transforms each frame into ASCII and starts printing them once they are all ready.
+It ensures videos with a high framerate will play smoothly, even in low-end hardware, but it has an increased loading time.
+
+### pyscii_dev.py
+
+This alternative version ([pyscii_dev.py](https://raw.githubusercontent.com/Julynx/pyscii/main/pyscii_dev.py)) processes each frame before printing and measures this computing time. It uses this information and the input video framerate to produce a constant output. It will significantly reduce loading times while increasing CPU usage while printing. It will only perform smoothly if you have a powerful enough device.
