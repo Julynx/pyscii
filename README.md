@@ -19,6 +19,17 @@ A simple and extremely fast python script to turn video into ASCII the right way
 - Video conversion and frame extraction are efficiently handled by FFMPEG.
 - All this under 120 lines of code.
 
+## Dependencies
+To install the required dependencies numpy and Pillow, run:
+```
+pip3 install numpy, Pillow
+```
+Then, make sure you have FFMPEG installed by running the command specific to your linux distribution. 
+For Ubuntu:
+```
+sudo apt install ffmpeg
+```
+
 ## Usage
 From the downloaded folder:
 ```
