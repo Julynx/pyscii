@@ -81,7 +81,6 @@ def main() -> int:
 
         print("\n" + frame, end="")
         interval = max(((1/framerate)-(t1 - t0)), 0)
-        print("Interval: ", interval)
         time.sleep(interval)
 
     return 0
