@@ -2,7 +2,7 @@
 
 """
 @file     pyscii.py
-@date     26/09/2022
+@date     17/10/2022
 @version  1.0.0_dev
 @license  GNU General Public License v2.0
 @url      github.com/Julynx/pyscii
@@ -26,14 +26,14 @@ from PIL import Image, ImageOps
 
 def pixel_to_ascii(brightness) -> str:
     palette = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~i!lI;:,\"^`\". "[::-1]
-    normalized_grayscl = brightness/255
-    return palette[int(normalized_grayscl * (len(palette) - 1))]
+    return palette[int((brightness/255) * (len(palette) - 1))]
 
 
 def main() -> int:
 
     rt = "\033[1A\033[2K"  # reset line
     rows, cols = os.get_terminal_size()
+    vecToAscii = np.vectorize(pixel_to_ascii)
 
     # Check input arguments
     if len(sys.argv) != 2 or sys.argv[1] in ["-h", "--help"]:
@@ -66,29 +66,24 @@ def main() -> int:
     print(f"{rt}Processing took {round((t1-t0)*1000, 2)} ms")
 
     ##
-    # Load frames with pillow, grayscale them and make them a numpy array
-    ##
-    t0 = time.time()
-    i_arrays = []
-    for i, frame in enumerate(frames):
-        print(f"Loading frame {i+1}/{len(frames)}")
-        print(rt, end="")
-        image = Image.open(f"/tmp/pyscii-frames/{frame}")
-        image = ImageOps.grayscale(image)
-        i_arrays.append(np.asarray(image))
-    t1 = time.time()
-    print(f"Loading took {round((t1-t0)*1000, 2)} ms")
-
-    ##
-    # Convert frames to ascii and print them
+    # MAIN LOOP
     ##
     misses = 0
-    vecToAscii = np.vectorize(pixel_to_ascii)
-    for array in i_arrays:
+    for frame in frames:
 
         t0 = time.time()
-        ascii_array = vecToAscii(array)
-        frame = "\n".join(["".join(row) for row in ascii_array])
+
+        ##
+        # Load frame with pillow, grayscale it and make it a numpy array
+        ##
+        image = Image.open(f"/tmp/pyscii-frames/{frame}")
+        array = np.asarray(ImageOps.grayscale(image))
+
+        ##
+        # Convert the numpy array to a string
+        ##
+        frame = "\n".join(["".join(row) for row in vecToAscii(array)])
+
         t1 = time.time()
 
         interval = max(((1/framerate)-(t1 - t0)), 0)
@@ -103,6 +98,9 @@ def main() -> int:
         print("\n" + frame, end="")
         time.sleep(interval)
 
+    ##
+    # Clean up and exit
+    ##
     os.system("rm -rf /tmp/pyscii-frames")
     return 0
 
