@@ -1,7 +1,18 @@
 # pyscii
 A simple and extremely fast python script to turn video into ASCII the right way.
 
-![Alt Text](https://i.imgur.com/G2uqxQo.png)
+<br>
+<h4 align="center">ASCII output using the regular "pyscii" command.</h4>
+<p align="center">  
+  <img width="640" src="https://i.imgur.com/G2uqxQo.pngg">
+</p>
+<br>
+
+<h4 align="center">Colored output using the "pyscii_color" command on supported terminals.</h4>
+<p align="center">  
+  <img width="640" src="https://i.imgur.com/yYpoyAM.png">
+</p>
+<br>
 
 ## Why pyscii?
 ### Easy to use
