@@ -2,22 +2,22 @@
 
 import os
 import sys
+from time import perf_counter, sleep
 import numpy as np
 from PIL import Image
-from time import perf_counter, sleep
 
 
-def process_frame(frame):
+def process_frame(frame_in):
 
-    array = np.asarray(Image.open(f"/tmp/pyscii-frames/{frame}"))
+    array = np.asarray(Image.open(f"/tmp/pyscii-frames/{frame_in}"))
 
-    frame = "\n".join(
+    frame_out = "\n".join(
         map("".join,
             [[f'\033[38;2;{p[0]};{p[1]};{p[2]}m\033[48;2;{q[0]};{q[1]};{q[2]}m▀'
               for p, q in zip(array[i], array[i+1])]
              for i in range(0, array.shape[0]-1, 2)]))
 
-    return frame
+    return frame_out
 
 
 if __name__ == "__main__":
@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) != 2 or sys.argv[1] in ["-h", "--help"]:
         print("Usage: program <file_name>")
-        exit(0)
+        sys.exit(0)
 
     os.system("rm -rf /tmp/pyscii-frames; mkdir /tmp/pyscii-frames")
 
